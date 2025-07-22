@@ -1,4 +1,5 @@
 import fastify from 'fastify'
+import crypto from 'node:crypto'
 import { knex } from './database.js'
 
 const app = fastify()
@@ -7,10 +8,11 @@ const app = fastify()
 // exemplo: http://localhost:3333/hello
 
 app.get('/hello', async () => {
-  /* apenas para testar o banco, chamando todos ('*') os dados da tabela 
-  'sqlite_schema', um nome padrão utilizado */
-  const tables = await knex('sqlite_schema').select('*')
-  return tables
+  const transaction = await knex('transactions')
+    .where('amount', 10100)
+    .select('*')
+
+  return transaction
 })
 
 /* esse listen retorna uma promise (.then) do Javascript, e quando essa promise 
