@@ -1,5 +1,6 @@
 // Knex é uma interface para configuração
 import { knex as setupKnex, Knex } from 'knex'
+import { env } from './env'
 
 /* Dizendo para a const config para que ela siga as configurações de 
 nossa interface Knex */
@@ -11,7 +12,7 @@ export const config: Knex.Config = {
   connection: {
     /* criar uma pasta 'tmp' antes, na raíz de nosso código, esse código
     ira criar um arquivo chamado 'app.db' dentro da pasta  tmp */
-    filename: './db/app.db',
+    filename: env.DATABASE_URL,
   },
   useNullAsDefault: true,
   migrations: {
