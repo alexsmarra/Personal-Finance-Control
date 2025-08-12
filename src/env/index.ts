@@ -1,12 +1,20 @@
 /* para ler o arquivo .env no root de nosso app, expondo todos os valores dentro 
 de uma variável global chamada  process.env , se dermos aqui um console.log(process.env)
 será possível visualizar essas variáveis */
-import 'dotenv/config'
+import { config } from 'dotenv'
 
 /* para formar um schema, que é um formato de dado, para sabermos o formato de
 dados que receberemos de nossas variáveis ambiente, e faremos um único schema 
 para todas as variáveis ambiente */
 import { z } from 'zod'
+
+if (process.env.NODE_ENV === 'test') {
+  config({ path: '.env.test' })
+} else {
+  /* caso não encontre, irá fazer o config no arquivo padrão, isto é, utilizando
+  como path o arquivo .env */
+  config()
+}
 
 /* aqui dentro colocaremos as variáveis de nosso app */
 const envSchema = z.object({
