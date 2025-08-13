@@ -1,4 +1,12 @@
+# Dependencies
 node_modules
-db/app.db
+
+# Database ('*.db' para ignorar todos os arquivos que terminarem com '.db, no caso, o app.db e o teste.db)
+db/*.db
+
+# Environment
 .env
 .env.test
+
+# Build
+build
