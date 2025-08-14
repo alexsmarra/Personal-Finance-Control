@@ -6,14 +6,16 @@ import { env } from './env'
 nossa interface Knex */
 export const config: Knex.Config = {
   // banco de dados que estamos utilizando
-  client: 'sqlite',
+  client: env.DATABASE_CLIENT,
   /* informações obrigatórias sobre a nossa conexão, que no sqlite precisamos
   informar apenas o nome do arquivo */
-  connection: {
-    /* criar uma pasta 'tmp' antes, na raíz de nosso código, esse código
-    ira criar um arquivo chamado 'app.db' dentro da pasta  tmp */
-    filename: env.DATABASE_URL,
-  },
+  connection:
+    env.DATABASE_CLIENT === 'sqlite'
+      ? {
+          filename: env.DATABASE_URL,
+        }
+      : // se for PostgreSQL
+        env.DATABASE_URL,
   useNullAsDefault: true,
   migrations: {
     // configurando a extensão que queremos usar nas migrations

@@ -22,11 +22,18 @@ const envSchema = z.object({
   em que nosso app está rodando. enum() server para escolher entre as opções do 
   parâmetro, e deixamos como padrão a 'production' */
   NODE_ENV: z.enum(['development', 'test', 'production']).default('production'),
+
+  /* Nossa aplicação aceita sqlite ou pg (de Postgresql), 'pg' já que nas configurações 
+  do Knex, para o Postgres é => client: 'pg' */
+  DATABASE_CLIENT: z.enum(['sqlite', 'pg']),
+
   /* Dizendo que precisa ser uma string. Se ela não fosse obrigatória, colocaríamos 
   'z.string().nullable()' (apenas de curiosidade) */
   DATABASE_URL: z.string(),
-  // porta do tipo number, padrão de 3333, não sendo obrigatória por conta do 'default()'
-  PORT: z.number().default(3333),
+
+  /* 'coerce' é para transformar o que vier na PORT (não interessa se é string ou number)
+  em um number, e caso não retorne um valor válido, o padrão é 3333 */
+  PORT: z.coerce.number().default(3333),
 })
 
 /* o 'safeParse' irá verificar se o nosso contrato envSchema está de acordo com o 
