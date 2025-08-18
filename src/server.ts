@@ -10,5 +10,5 @@ app
     host: 'RENDER' in process.env ? '0.0.0.0' : 'localhost',
   })
   .then(() => {
-    console.log('HTTP server running!')
+    console.log(`HTTP server running on PORT ${env.PORT}!`)
   })
